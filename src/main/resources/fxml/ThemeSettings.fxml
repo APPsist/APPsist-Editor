@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="60.0" layoutY="24.0" prefHeight="30.0" prefWidth="218.0" text="Glassroom Manager Theme" textFill="#1a1a1a">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="60.0" layoutY="177.0" prefHeight="30.0" prefWidth="194.0" text="APPsist Manager Theme" textFill="#1a1a1a">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <ImageView fitHeight="105.0" fitWidth="207.0" layoutX="220.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logos/logo_glassroom.png" />
+         </image></ImageView>
+      <ImageView fitHeight="105.0" fitWidth="105.0" layoutX="220.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../logos/logo_appsist.png" />
+         </image>
+      </ImageView>
+      <RadioButton fx:id="selectAppsistRadioButton" layoutX="78.0" layoutY="265.0" mnemonicParsing="false" onAction="#selectAppsistAction">
+         <toggleGroup>
+            <ToggleGroup fx:id="ThemeSwitch" />
+         </toggleGroup></RadioButton>
+      <RadioButton fx:id="selectGlassroomRadioButton" layoutX="78.0" layoutY="100.0" mnemonicParsing="false" onAction="#selectGlassroomAction" toggleGroup="$ThemeSwitch" />
+      <Button fx:id="saveButton" layoutX="386.0" layoutY="348.0" mnemonicParsing="false" onAction="#save" text="Speichern" />
+      <Button fx:id="cancelButton" layoutX="479.0" layoutY="348.0" mnemonicParsing="false" onAction="#cancel" text="Abbrechen" />
+   </children>
+</Pane>

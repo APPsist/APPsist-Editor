@@ -1,0 +1,120 @@
+.root {
+    /* A bright blue for highlighting/accenting objects.  For example: selected
+     * text; selected items in menus, lists, trees, and tables; progress bars;
+     * default buttons.
+     */
+    -fx-accent: #27ad7a;
+}
+
+.tab-pane .tab-header-background {
+    -fx-background-color: none;
+}
+
+.vbox {
+    -fx-background-color: none;
+    -fx-border-color: #1a1a1a;
+    -fx-border-radius: 5; 
+}
+
+.menu:hover{
+    -fx-background-color: #27ad7a;
+}
+.menu:showing {
+    -fx-background-color: #27ad7a;
+}
+.menu-item:hover {
+    -fx-background-color: #27ad7a;
+}
+.menu-item:focused {
+     -fx-background-color: #27ad7a;
+}
+
+.context-menu {
+    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
+    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em;
+}
+
+.list-view {
+    -fx-border-color: #1a1a1a;
+}
+
+.list-view:selected {
+    -fx-border-color: #1a1a1a;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: #27ad7a;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #27ad7a;
+}
+
+.list-cell:filled:selected:focused, .list-cell:filled:selected {
+    -fx-background-color: #27ad7a;
+}
+
+.tab-header-background {
+    -fx-background-color: #FF7300;
+}
+
+.tool-bar {
+    -fx-background-color: none;
+}
+
+.button{
+    -fx-background-color: #27ad7a;
+    -fx-text-fill: #1a1a1a;
+    -fx-border-color: #1a1a1a;
+    -fx-border-radius: 5;
+}
+
+.btn {
+   -fx-background-color: #27ad7a;
+    -fx-text-fill: #1a1a1a;
+    -fx-border-color: #1a1a1a;
+    -fx-border-radius: 5; 
+}
+
+.button:focused {
+    -fx-border-color: #27ad7a;
+}
+
+.button:active{
+    -fx-background-color: #27ad7a;
+}
+
+.text-field:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-border-color: #27ad7a;
+}
+
+.text-area:focused {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-border-color: #27ad7a;
+}
+
+.check-box .box {
+
+-fx-background-color: white;
+-fx-border-color:grey;
+-fx-border-radius:3px; 
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: white;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: #27ad7a;
+}
+
+.tab:selected{ 
+-fx-border-color: #27ad7a;
+}

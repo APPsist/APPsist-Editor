@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="572.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" stylesheets="@../css/style_glassroom.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <bottom>
+      <ToolBar nodeOrientation="RIGHT_TO_LEFT" stylesheets="@../css/style_glassroom.css" BorderPane.alignment="CENTER">
+        <items>
+            <JFXButton ellipsisString="" onAction="#cancel" prefHeight="25.0" prefWidth="80.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Abbrechen" textFill="WHITE" />
+            <JFXButton ellipsisString="" onAction="#validateAndClose" prefHeight="25.0" prefWidth="80.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="OK" textFill="WHITE" />
+        </items>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </ToolBar>
+   </bottom>
+   <center>
+      <JFXTabPane BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab closable="false" text="Allgemein">
+               <content>
+                  <VBox>
+                     <children>
+                        <TitledPane animated="false" text="Anleitungen">
+                           <content>
+                              <VBox style="-fx-background-color: #ffffff;">
+                                 <children>
+                                    <Label text="Lokales Repository">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <BorderPane>
+                                       <right>
+                                          <ToolBar BorderPane.alignment="CENTER_RIGHT">
+                                             <items>
+                                                <JFXButton ellipsisString="" onAction="#showFolderSelection" prefHeight="0.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" textFill="WHITE" translateY="5.0">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../icons/ic_folder_white_18dp.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                             </items>
+                                          </ToolBar>
+                                       </right>
+                                       <bottom>
+                                          <Label fx:id="missingDirMessage" text="[Fehlermeldung]" textFill="RED" BorderPane.alignment="CENTER_LEFT">
+                                             <BorderPane.margin>
+                                                <Insets top="10.0" />
+                                             </BorderPane.margin>
+                                          </Label>
+                                       </bottom>
+                                       <left>
+                                          <JFXTextField fx:id="repoDirInput" focusColor="#ff7300" prefHeight="30.0" prefWidth="489.0" promptText="Repository-Ordner" translateY="5.0" unFocusColor="#ff7300" BorderPane.alignment="CENTER" />
+                                       </left>
+                                    </BorderPane>
+                                    <VBox prefHeight="93.0" prefWidth="558.0" style="-fx-background-color: #ffffff;" translateY="10.0">
+                                       <children>
+                                          <Label text="Online Repository">
+                                             <font>
+                                                <Font name="System Bold" size="12.0" />
+                                             </font>
+                                          </Label>
+                                          <BorderPane prefHeight="77.0" prefWidth="558.0">
+                                             <left>
+                                                <JFXTextField fx:id="onRepoDirInput" focusColor="#ff7300" prefHeight="30.0" prefWidth="489.0" promptText="Repository-Ordner" translateY="-10.0" unFocusColor="#ff7300" BorderPane.alignment="CENTER" />
+                                             </left>
+                                             <bottom>
+                                                <Label fx:id="missingDirMessage2" prefHeight="17.0" prefWidth="607.0" text="[Fehlermeldung]" textFill="RED" translateY="-10.0" BorderPane.alignment="CENTER" />
+                                             </bottom>
+                                          </BorderPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                        <TitledPane animated="false" layoutX="10.0" layoutY="10.0" text="Editoren">
+                           <content>
+                              <VBox style="-fx-background-color: #ffffff;">
+                                 <children>
+                                    <Label text="Bildbearbeitung">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <BorderPane>
+                                       <center>
+                                          <JFXCheckBox fx:id="useDefaultImageEditorCheck" checkedColor="#ff7300" prefHeight="30.0" prefWidth="621.0" text="Standard verwenden (Systemkonfiguration)" translateX="-10.0" translateY="-10.0" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane fx:id="imageEditorPane" layoutX="20.0" layoutY="37.0">
+                                       <right>
+                                          <ToolBar BorderPane.alignment="CENTER_RIGHT">
+                                             <items>
+                                                <JFXButton ellipsisString="" onAction="#showImageEditorSelection" prefHeight="0.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../icons/ic_folder_white_18dp.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                             </items>
+                                          </ToolBar>
+                                       </right>
+                                       <left>
+                                          <JFXTextField fx:id="imageEditorInput" focusColor="#ff7300" prefHeight="30.0" prefWidth="487.0" promptText="Editor" unFocusColor="#ff7300" BorderPane.alignment="CENTER" />
+                                       </left>
+                                    </BorderPane>
+                                    <Label layoutX="20.0" layoutY="20.0" text="Videobearbeitung">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                    <BorderPane layoutX="20.0" layoutY="47.0">
+                                       <center>
+                                          <JFXCheckBox fx:id="useDefaultVideoEditorCheck" checkedColor="#ff7300" prefHeight="30.0" prefWidth="621.0" text="Standard verwenden (Systemkonfiguration)" translateX="-10.0" translateY="-10.0" BorderPane.alignment="CENTER" />
+                                       </center>
+                                    </BorderPane>
+                                    <BorderPane fx:id="videoEditorPane" layoutX="20.0" layoutY="64.0">
+                                       <right>
+                                          <ToolBar BorderPane.alignment="CENTER_RIGHT">
+                                             <items>
+                                                <JFXButton ellipsisString="" onAction="#showVideoEditorSelection" prefHeight="0.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" textFill="WHITE">
+                                                   <graphic>
+                                                      <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                         <image>
+                                                            <Image url="@../icons/ic_folder_white_18dp.png" />
+                                                         </image>
+                                                      </ImageView>
+                                                   </graphic>
+                                                </JFXButton>
+                                             </items>
+                                          </ToolBar>
+                                       </right>
+                                       <left>
+                                          <JFXTextField fx:id="videoEditorInput" focusColor="#ff7300" prefHeight="30.0" prefWidth="487.0" promptText="Editor" unFocusColor="#ff7300" BorderPane.alignment="CENTER" />
+                                       </left>
+                                    </BorderPane>
+                                    <Label fx:id="editorErrorMessage" text="[Fehlermeldung]" textFill="RED">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab closable="false" text="Sonstige">
+               <content>
+                  <VBox style="-fx-background-color: #ffffff;">
+                     <children>
+                        <TitledPane animated="false" style="-fx-background-color: #ffffff;" text="Werkzeuge">
+                           <content>
+                              <BorderPane>
+                                 <left>
+                                    <JFXButton ellipsisString="" onAction="#importTools" prefHeight="25.0" prefWidth="150.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Werkzeuge importieren" textFill="WHITE" BorderPane.alignment="CENTER" />
+                                 </left>
+                              </BorderPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane text="VR">
+                           <content>
+                              <BorderPane style="-fx-background-color: #ffffff;">
+                                 <left>
+                                    <JFXButton ellipsisString="" onAction="#importVRMethods" prefHeight="25.0" prefWidth="235.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="VR Methoden-Spezifikation importieren" textFill="WHITE" BorderPane.alignment="CENTER" />
+                                 </left>
+                              </BorderPane>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </center>
+</BorderPane>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@../css/style_glassroom.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <bottom>
+      <ToolBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+            <JFXButton onAction="#cancel" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Abbrechen" textFill="WHITE" />
+            <JFXButton onAction="#accept" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Übernehmen" textFill="WHITE" />
+        </items>
+      </ToolBar>
+   </bottom>
+   <left>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane>
+               <center>
+                  <ComboBox fx:id="toolComboBox" prefWidth="400.0" promptText="&lt;Neues Werkzeug&gt;" style="background-color: #000000;" BorderPane.alignment="CENTER">
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" />
+                     </BorderPane.margin>
+                  </ComboBox>
+               </center></BorderPane>
+            <BorderPane prefHeight="28.0" prefWidth="390.0">
+               <left>
+                  <Label prefWidth="100.0" text="ID:" BorderPane.alignment="CENTER" />
+               </left>
+               <center>
+                  <JFXTextField fx:id="toolIdInput" editable="false" focusColor="#ff7300" maxWidth="-Infinity" prefHeight="27.0" prefWidth="289.0" promptText="-" unFocusColor="#ff7300" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </JFXTextField>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="28.0" prefWidth="390.0">
+               <left>
+                  <Label prefWidth="100.0" text="Bezeichnung:" BorderPane.alignment="CENTER" />
+               </left>
+               <center>
+                  <JFXTextField fx:id="toolNameInput" editable="false" focusColor="#ff7300" maxWidth="-Infinity" prefHeight="27.0" prefWidth="289.0" promptText="-" unFocusColor="#ff7300" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </JFXTextField>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </left>
+</BorderPane>

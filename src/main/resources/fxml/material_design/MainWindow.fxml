@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.media.MediaView?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="800.0" prefWidth="960.0" stylesheets="@../css/style_glassroom.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <VBox style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+        <children>
+          <MenuBar style="-fx-border-color: #BABABA; -fx-background-color: #ffffff;" VBox.vgrow="NEVER">
+            <menus>
+              <Menu mnemonicParsing="false" text="Datei">
+                <items>
+                        <MenuItem mnemonicParsing="false" onAction="#createNewGuide" text="Neue Anleitung erstellen">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/lc_dbnewform.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <MenuItem mnemonicParsing="false" onAction="#showLoginScreen" text="LOGIN" />
+                        <MenuItem mnemonicParsing="false" onAction="#selectGuide" text="Anleitung öffnen...">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/lc_open.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </MenuItem>
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#showSynchronizeWindow" text="Synchronisieren...">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/lc_refresh.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#showSettingsWindow" text="Einstellungen..." />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#closeApplication" text="Beenden">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/system-log-out.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                </items>
+              </Menu>
+                  <Menu mnemonicParsing="false" text="Bearbeiten">
+                    <items>
+                      <MenuItem fx:id="undoMenuItem" mnemonicParsing="false" onAction="#undo" text="Rückgängig">
+                           <accelerator>
+                              <KeyCodeCombination alt="UP" code="Z" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                           </accelerator>
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/lc_undo.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></MenuItem>
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Konfiguration">
+                     <items>
+                        <MenuItem fx:id="switchTheme" mnemonicParsing="false" onAction="#switchTheme" text="Theme einstellen">
+                           <graphic>
+                              <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true" />
+                           </graphic>
+                        </MenuItem>
+                     </items>
+                  </Menu>
+            </menus>
+          </MenuBar>
+            <BorderPane>
+               <center>
+                  <VBox BorderPane.alignment="CENTER">
+                     <children>
+                        <BorderPane fx:id="headerChapterInfo" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="200.0">
+                           <left>
+                              <Label prefWidth="100.0" text="Kapitel von:" textAlignment="RIGHT" BorderPane.alignment="CENTER" />
+                           </left>
+                           <center>
+                              <FlowPane alignment="CENTER_LEFT" hgap="5.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <JFXTextField fx:id="parentGuideTitle" editable="false" focusColor="#ff7300" prefHeight="27.0" prefWidth="395.0" promptText="Titel der übergeordneten Anleitung" unFocusColor="#ff7300">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </JFXTextField>
+                                    <JFXButton ellipsisString="" onAction="#returnToParentGuide" prefHeight="28.0" prefWidth="16.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Button" textFill="WHITE" translateX="15.0">
+                                       <tooltip>
+                                          <Tooltip text="Zur übergeordneten Anleitung zurück kehren." />
+                                       </tooltip>
+                                       <graphic>
+                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/ic_arrow_back_white_18dp.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </JFXButton>
+                                 </children>
+                              </FlowPane>
+                           </center>
+                        </BorderPane>
+                        <BorderPane prefWidth="200.0">
+                           <left>
+                              <Label prefWidth="100.0" text="Titel:" textAlignment="RIGHT" BorderPane.alignment="CENTER" />
+                           </left>
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                           <center>
+                              <JFXTextField fx:id="guideTitle" editable="false" focusColor="#ff7300" maxWidth="-Infinity" prefHeight="27.0" prefWidth="395.0" promptText="-" unFocusColor="#ff7300" BorderPane.alignment="CENTER_LEFT">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXTextField>
+                           </center>
+                        </BorderPane>
+                        <BorderPane prefWidth="200.0">
+                           <left>
+                              <Label prefWidth="100.0" text="Beschreibung:" BorderPane.alignment="CENTER">
+                                 <BorderPane.margin>
+                                    <Insets top="5.0" />
+                                 </BorderPane.margin></Label>
+                           </left>
+                           <center>
+                              <JFXTextField fx:id="guideDescription" editable="false" focusColor="#ff7300" maxWidth="-Infinity" prefHeight="27.0" prefWidth="395.0" promptText="-" unFocusColor="#ff7300" BorderPane.alignment="CENTER_LEFT">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXTextField>
+                           </center>
+                        </BorderPane>
+                        <BorderPane fx:id="vrSceneInfoPane" layoutX="10.0" layoutY="70.0" prefWidth="200.0">
+                           <left>
+                              <Label prefWidth="100.0" text="VR-Szene" BorderPane.alignment="CENTER" />
+                           </left>
+                           <VBox.margin>
+                              <Insets top="5.0" />
+                           </VBox.margin>
+                           <center>
+                              <JFXTextField fx:id="vrSceneLabel" editable="false" focusColor="#ff7300" maxWidth="-Infinity" prefHeight="27.0" prefWidth="395.0" promptText="-" unFocusColor="#ff7300" BorderPane.alignment="CENTER_LEFT">
+                                 <font>
+                                    <Font size="13.0" />
+                                 </font>
+                              </JFXTextField>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </VBox>
+               </center>
+               <right>
+                  <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" translateY="-5.0" BorderPane.alignment="TOP_CENTER">
+                     <items>
+                        <JFXButton fx:id="editGuideButton" ellipsisString="" onAction="#showEditGuideWindow" prefHeight="38.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Titel und Beschreibung bearbeiten" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_border_color_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteGuideButton" ellipsisString="" onAction="#deleteGuide" prefHeight="15.0" prefWidth="28.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Löschen" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Anleitung löschen" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_clear_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                     </items>
+                     <BorderPane.margin>
+                        <Insets left="10.0" />
+                     </BorderPane.margin>
+                  </ToolBar>
+               </right>
+               <VBox.margin>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+               <top>
+                  <Label text="Anleitung" BorderPane.alignment="CENTER_LEFT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+               </top>
+            </BorderPane>
+        </children>
+      </VBox>
+   </top>
+   <center>
+      <SplitPane fx:id="body" dividerPositions="0.35" BorderPane.alignment="CENTER">
+         <items>
+            <BorderPane minWidth="320.0" style="-fx-background-color: #ffffff;">
+               <top>
+                  <Label text="Schritte &amp; Kapitel" BorderPane.alignment="CENTER_LEFT">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                     <BorderPane.margin>
+                        <Insets bottom="5.0" />
+                     </BorderPane.margin>
+                  </Label>
+               </top>
+               <right>
+                  <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                    <items>
+                        <JFXButton fx:id="moveNodeUpButton" ellipsisString="" onAction="#moveNodeUp" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Ausgewählten Eintrag nach oben schieben" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_arrow_up_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="moveNodeDownButton" ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#moveNodeDown" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Ausgewählten Eintrag nach oben schieben" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_arrow_down_white_18dp_1.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Separator style=": FF7300;" />
+                        <JFXButton fx:id="combineStepsButton" ellipsisString="" onAction="#combineSteps" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Ausgewählte Einträge zu einem Kapitel zusammenfassen" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Ausgewählte Einträge zu einem Kapitel zusammenfassen" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_add_to_photos_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <Separator />
+                        <JFXButton fx:id="mediaFolderButton" ellipsisString="" onAction="#openContentFolder" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Inhaltspaket im Dateibrowser anzeigen" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Inhaltspaket im Dateibrowser anzeigen" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_folder_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton fx:id="deleteNodeButton" ellipsisString="" onAction="#deleteNode" prefHeight="22.0" prefWidth="14.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Ausgewählte Einträge löschen" textFill="WHITE">
+                           <tooltip>
+                              <Tooltip text="Ausgewählte Einträge löschen" />
+                           </tooltip>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_delete_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                    </items>
+                  </ToolBar>
+               </right>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <bottom>
+                  <ToolBar prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                    <items>
+                        <JFXButton ellipsisString="" onAction="#createNewStep" prefHeight="38.0" prefWidth="121.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Neuer Schritt" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_add_box_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                        <JFXButton ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#createNewChapter" prefHeight="38.0" prefWidth="129.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Kapitel verlinken" textFill="WHITE">
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/ic_link_white_18dp.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic>
+                        </JFXButton>
+                    </items>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </ToolBar>
+               </bottom>
+               <center>
+                  <JFXListView fx:id="stepListView" style="-fx-border-color: FF7300; -fx-background-insets: 0;" BorderPane.alignment="CENTER" />
+               </center>
+            </BorderPane>
+            <BorderPane fx:id="nodeDetailsPane">
+               <center>
+                  <StackPane minWidth="550.0" style="-fx-background-color: #ffffff;">
+                     <children>
+                        <BorderPane fx:id="chapterPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-background;">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </StackPane.margin>
+                           <center>
+                              <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                                 <children>
+                                    <TitledPane animated="false" text="Verknüpfte Anleitung">
+                                       <content>
+                                          <BorderPane>
+                                             <right>
+                                                <ToolBar orientation="VERTICAL" BorderPane.alignment="CENTER">
+                                                  <items>
+                                                    <Button mnemonicParsing="false" onAction="#openChapter">
+                                                         <graphic>
+                                                            <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../icons/lc_arrowshapes.striped-right-arrow.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                      <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#editChapter">
+                                                         <graphic>
+                                                            <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                               <image>
+                                                                  <Image url="@../icons/lc_editdoc.png" />
+                                                               </image>
+                                                            </ImageView>
+                                                         </graphic>
+                                                      </Button>
+                                                  </items>
+                                                </ToolBar>
+                                             </right>
+                                             <center>
+                                                <VBox BorderPane.alignment="CENTER">
+                                                   <children>
+                                                      <Label fx:id="chapterGuideTitle" text="n/a">
+                                                         <font>
+                                                            <Font size="16.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </VBox>
+                                             </center>
+                                          </BorderPane>
+                                       </content>
+                                    </TitledPane>
+                                 </children>
+                              </VBox>
+                           </center>
+                        </BorderPane>
+                        <BorderPane fx:id="stepPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: -fx-background;">
+                           <StackPane.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </StackPane.margin>
+                           <center>
+                              <JFXTabPane BorderPane.alignment="CENTER">
+                                 <tabs>
+                                    <Tab style="background-color: #000000;" text="Allgemein">
+                                       <content>
+                                          <VBox style="-fx-background-color: #ffffff; -fx-border-color: #BABABA;">
+                                             <children>
+                                                <Pane prefHeight="95.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" translateY="5.0">
+                                                   <children>
+                                                      <BorderPane prefHeight="102.0" prefWidth="548.0" translateY="5.0">
+                                                         <right>
+                                                            <ToolBar orientation="VERTICAL" prefHeight="34.0" prefWidth="48.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                                                               <items>
+                                                                  <JFXButton ellipsisString="" onAction="#editStepInfo" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE" translateY="10.0">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Titel und Beschreibung bearbeiten" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_border_color_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                               </items>
+                                                            </ToolBar>
+                                                         </right>
+                                                         <left>
+                                                            <JFXTextField fx:id="stepInfo" focusColor="#ff7300" prefHeight="25.0" prefWidth="459.0" promptText="Beschreibung des Schrittes" translateX="10.0" unFocusColor="#ff7300" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="13.0" />
+                                                               </font>
+                                                            </JFXTextField>
+                                                         </left>
+                                                         <top>
+                                                            <Label prefHeight="27.0" prefWidth="109.0" text="Beschreibung" translateX="-210.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </top>
+                                                      </BorderPane>
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="288.0" prefWidth="612.0" style="-fx-background-color: #ffffff;" translateY="15.0">
+                                                   <children>
+                                                      <BorderPane layoutY="11.0" prefHeight="240.0" prefWidth="491.0" style="-fx-background-color: #ffffff;">
+                                                         <right>
+                                                            <ToolBar orientation="VERTICAL" prefHeight="251.0" prefWidth="50.0" style="-fx-background-color: #ffffff;" translateX="58.0" BorderPane.alignment="CENTER">
+                                                               <items>
+                                                                  <JFXButton ellipsisString="" onAction="#mediaSelectImage" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Bild als Medienobjekt hinterlegen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_image_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton ellipsisString="" layoutX="10.0" layoutY="10.0" onAction="#mediaSelectVideo" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Video als Medienobjekt hinterlegen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_video_collection_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <Separator />
+                                                                  <JFXButton fx:id="mediaRefreshButton" ellipsisString="" onAction="#refreshMedia" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Medienobjekt aktualisieren" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_refresh_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="mediaEditButton" ellipsisString="" onAction="#editMediaObject" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Medienobjekt bearbeiten" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_border_color_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="mediaRemoveButton" ellipsisString="" onAction="#mediaRemove" prefHeight="14.0" prefWidth="29.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Löschen" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Medienobjekt löschen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_clear_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                               </items>
+                                                            </ToolBar>
+                                                         </right>
+                                                         <center>
+                                                            <StackPane prefHeight="251.0" prefWidth="498.0" translateX="10.0" BorderPane.alignment="CENTER">
+                                                               <children>
+                                                                  <AnchorPane fx:id="noMediaPane" layoutX="10.0" layoutY="10.0" prefHeight="50.0" style="-fx-background-color: #F5F5F5;">
+                                                                     <children>
+                                                                        <Label text="Derzeit ist kein Medienobjekt hinterlegt." />
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                                  <AnchorPane fx:id="imageMediaPane" style="-fx-background-color: #F5F5F5;">
+                                                                     <children>
+                                                                        <ImageView fx:id="contentImageView" fitHeight="244.0" fitWidth="432.0" pickOnBounds="true" preserveRatio="true" />
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                                  <AnchorPane fx:id="videoMediaPane" prefHeight="251.0" prefWidth="502.0" style="-fx-background-color: #F5F5F5;">
+                                                                     <children>
+                                                                        <Rectangle arcHeight="5.0" arcWidth="5.0" height="246.0" stroke="BLACK" strokeType="INSIDE" width="436.0" />
+                                                                        <MediaView fx:id="contentVideoView" fitHeight="251.0" fitWidth="441.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                                                                        <Button layoutX="327.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleVideoPlay">
+                                                                           <graphic>
+                                                                              <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                                                 <image>
+                                                                                    <Image url="@../icons/media-playback-start.png" />
+                                                                                 </image>
+                                                                              </ImageView>
+                                                                           </graphic>
+                                                                           <tooltip>
+                                                                              <Tooltip text="Video starten" />
+                                                                           </tooltip>
+                                                                        </Button>
+                                                                        <Button layoutX="376.0" layoutY="206.0" mnemonicParsing="false" onAction="#handleVideoStop">
+                                                                           <graphic>
+                                                                              <ImageView fitHeight="26.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                                                                                 <image>
+                                                                                    <Image url="@../icons/media-playback-stop.png" />
+                                                                                 </image>
+                                                                              </ImageView>
+                                                                           </graphic>
+                                                                           <tooltip>
+                                                                              <Tooltip text="Video stoppen" />
+                                                                           </tooltip>
+                                                                        </Button>
+                                                                     </children>
+                                                                  </AnchorPane>
+                                                               </children>
+                                                            </StackPane>
+                                                         </center>
+                                                         <top>
+                                                            <Label layoutX="-1.0" text="Media" translateX="-210.0" translateY="-10.0" BorderPane.alignment="CENTER">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                         </top>
+                                                      </BorderPane>
+                                                   </children>
+                                                </Pane>
+                                                <Pane prefHeight="29.0" prefWidth="600.0" style="-fx-background-color: #ffffff;" translateX="5.0" translateY="50.0">
+                                                   <children>
+                                                      <VBox prefHeight="17.0" prefWidth="261.0">
+                                                         <children>
+                                                            <Label text="Anforderungen" translateX="5.0">
+                                                               <font>
+                                                                  <Font size="16.0" />
+                                                               </font>
+                                                            </Label>
+                                                            <JFXCheckBox fx:id="stepIsRoutine" alignment="CENTER" checkedColor="#ff7300" text="Es handelt sich um eine Routinetätigkeit." translateY="15.0" />
+                                                         </children>
+                                                      </VBox>
+                                                   </children>
+                                                </Pane>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </Tab>
+                                    <Tab text="Warnungen und Hinweise">
+                                       <content>
+                                          <VBox>
+                                             <children>
+                                                <TitledPane animated="false" style="-fx-background-color: #ffffff;" text="Warnungen">
+                                                   <content>
+                                                      <BorderPane style="-fx-background-color: #ffffff;">
+                                                         <right>
+                                                            <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                                                               <items>
+                                                                  <JFXButton ellipsisString="" onAction="#addWarning" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Neue Warnung hinzufügen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_add_box_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="editWarningButton" ellipsisString="" onAction="#editWarning" prefHeight="38.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Warnung bearbeiten" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_border_color_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="removeWarningButton" ellipsisString="" onAction="#removeWarning" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Warnung löschen" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Anleitung löschen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_clear_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                               </items>
+                                                            </ToolBar>
+                                                         </right>
+                                                         <center>
+                                                            <JFXListView fx:id="warningsListView" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                      </BorderPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane animated="false" layoutX="10.0" layoutY="10.0" style="-fx-background-color: #ffffff;" text="Hinweise">
+                                                   <content>
+                                                      <BorderPane style="-fx-background-color: #ffffff;">
+                                                         <right>
+                                                            <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                                                               <items>
+                                                                  <JFXButton ellipsisString="" onAction="#addHint" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Neuen Hinweis hinzufügen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_add_box_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="editHintButton" ellipsisString="" onAction="#editHint" prefHeight="38.0" prefWidth="40.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Hinweis bearbeiten" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_border_color_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="removeHintButton" ellipsisString="" onAction="#removeHint" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Warnung löschen" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Hinweis löschen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_clear_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                               </items>
+                                                            </ToolBar>
+                                                         </right>
+                                                         <center>
+                                                            <JFXListView fx:id="hintsListView" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                      </BorderPane>
+                                                   </content>
+                                                </TitledPane>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </Tab>
+                                    <Tab text="Werkzeuge und VR">
+                                       <content>
+                                          <VBox style="-fx-background-color: #ffffff;">
+                                             <children>
+                                                <TitledPane prefHeight="200.0" prefWidth="200.0" text="Werkzeuge">
+                                                   <content>
+                                                      <BorderPane style="-fx-background-color: #ffffff;">
+                                                         <right>
+                                                            <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                                                               <items>
+                                                                  <JFXButton ellipsisString="" onAction="#addTool" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="Bearbeiten" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Werkzeug hinzufügen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_add_box_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                                  <JFXButton fx:id="removeToolButton" ellipsisString="" onAction="#removeTool" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="Warnung löschen" textFill="WHITE">
+                                                                     <tooltip>
+                                                                        <Tooltip text="Werkzeug löschen" />
+                                                                     </tooltip>
+                                                                     <graphic>
+                                                                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                           <image>
+                                                                              <Image url="@../icons/ic_clear_white_18dp.png" />
+                                                                           </image>
+                                                                        </ImageView>
+                                                                     </graphic>
+                                                                  </JFXButton>
+                                                               </items>
+                                                            </ToolBar>
+                                                         </right>
+                                                         <center>
+                                                            <JFXListView fx:id="toolListView" BorderPane.alignment="CENTER" />
+                                                         </center>
+                                                      </BorderPane>
+                                                   </content>
+                                                </TitledPane>
+                                                <TitledPane fx:id="vrPane" text="VR-Szene">
+                                                   <content>
+                                                      <VBox style="-fx-background-color: #ffffff;">
+                                                         <children>
+                                                            <BorderPane style="-fx-background-color: #ffffff;">
+                                                               <right>
+                                                                  <ToolBar orientation="VERTICAL" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                                                                     <items>
+                                                                        <JFXButton ellipsisString="" onAction="#selectVRNode" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #BABABA;" text="VR-Knoten auswählen" textFill="WHITE">
+                                                                           <tooltip>
+                                                                              <Tooltip text="VR-Knoten auswählen" />
+                                                                           </tooltip>
+                                                                           <graphic>
+                                                                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                                 <image>
+                                                                                    <Image url="@../icons/ic_folder_white_18dp.png" />
+                                                                                 </image>
+                                                                              </ImageView>
+                                                                           </graphic>
+                                                                        </JFXButton>
+                                                                        <JFXButton fx:id="removeVRNodeButton" ellipsisString="" onAction="#removeVRNode" prefHeight="38.0" prefWidth="38.0" ripplerFill="#6e6e6e" style="-fx-background-color: #d14836;" text="VR-Knoten entfernen" textFill="WHITE">
+                                                                           <tooltip>
+                                                                              <Tooltip text="VR-Knoten entfernen" />
+                                                                           </tooltip>
+                                                                           <graphic>
+                                                                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                                                 <image>
+                                                                                    <Image url="@../icons/ic_clear_white_18dp.png" />
+                                                                                 </image>
+                                                                              </ImageView>
+                                                                           </graphic>
+                                                                        </JFXButton>
+                                                                     </items>
+                                                                  </ToolBar>
+                                                               </right>
+                                                               <center>
+                                                                  <GridPane hgap="10.0" maxHeight="50.0" style="-fx-background-color: #ffffff;" vgap="5.0" BorderPane.alignment="CENTER">
+                                                                     <columnConstraints>
+                                                                        <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="257.0" minWidth="10.0" prefWidth="92.0" />
+                                                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="442.0" minWidth="10.0" prefWidth="424.0" />
+                                                                     </columnConstraints>
+                                                                     <rowConstraints>
+                                                                        <RowConstraints minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
+                                                                        <RowConstraints minHeight="20.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                                                                     </rowConstraints>
+                                                                     <children>
+                                                                        <Label text="VR-Knoten:" />
+                                                                        <Label text="VR-Methode:" GridPane.rowIndex="1" />
+                                                                        <Label fx:id="vrNodeLabel" text="-" GridPane.columnIndex="1" />
+                                                                        <Label fx:id="vrMethodLabel" text="-" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                                     </children>
+                                                                  </GridPane>
+                                                               </center>
+                                                            </BorderPane>
+                                                         </children>
+                                                      </VBox>
+                                                   </content>
+                                                </TitledPane>
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                    </Tab>
+                                 </tabs>
+                              </JFXTabPane>
+                           </center>
+                        </BorderPane>
+                     </children>
+                  </StackPane>
+               </center>
+            </BorderPane>
+         </items>
+      </SplitPane>
+   </center>
+</BorderPane>

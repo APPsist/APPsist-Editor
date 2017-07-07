@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" stylesheets="@../css/style_glassroom.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+   <center>
+      <JFXButton buttonType="RAISED" onAction="#initialize" prefHeight="107.0" prefWidth="215.0" ripplerFill="#0d00ff" style="-fx-background-color: #4444fe;" text="Hello World" textFill="WHITE" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

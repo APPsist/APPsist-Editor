@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXRadioButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane prefHeight="400.0" prefWidth="600.0" stylesheets="@../css/style_glassroom.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton fx:id="cancelButton" layoutX="455.0" layoutY="340.0" onAction="#cancel" prefHeight="40.0" prefWidth="120.0" stylesheets="@../css/style_glassroom.css" text="Cancel" />
+      <JFXButton fx:id="saveButton" layoutX="315.0" layoutY="340.0" onAction="#save" prefHeight="40.0" prefWidth="120.0" stylesheets="@../css/style_glassroom.css" text="Save" />
+      <Label layoutX="60.0" layoutY="24.0" prefHeight="30.0" prefWidth="218.0" text="Glassroom Manager theme" textFill="#e10909">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <Label layoutX="60.0" layoutY="177.0" prefHeight="30.0" prefWidth="194.0" text="APPsist Manager theme" textFill="#eb0909">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font></Label>
+      <ImageView fitHeight="105.0" fitWidth="207.0" layoutX="220.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/lc_delete.png" />
+         </image></ImageView>
+      <ImageView fitHeight="105.0" fitWidth="105.0" layoutX="220.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../icons/lc_delete.png" />
+         </image>
+      </ImageView>
+      <JFXRadioButton fx:id="selectAppsistRadioButton" layoutX="60.0" layoutY="257.0" onAction="#selectAppsistAction">
+         <toggleGroup>
+            <ToggleGroup fx:id="groupRadioButtons" />
+         </toggleGroup>
+      </JFXRadioButton>
+      <JFXRadioButton fx:id="selectGlassroomRadioButton" layoutX="60.0" layoutY="77.0" onAction="#selectGlassroomAction" prefHeight="63.0" prefWidth="25.0" toggleGroup="$groupRadioButtons" />
+   </children>
+</Pane>
