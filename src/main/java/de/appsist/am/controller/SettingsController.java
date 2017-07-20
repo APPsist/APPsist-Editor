@@ -7,9 +7,13 @@ import de.appsist.am.Session;
 import de.appsist.am.model.GuideManagerModel;
 import de.appsist.ape.GuideManager;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,13 +22,17 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -58,6 +66,9 @@ public class SettingsController implements SceneController {
             useDefaultImageEditorCheck,
             useDefaultVideoEditorCheck;
     
+    private Properties props;
+    @FXML private RadioButton selectGlassroomRadioButton;
+    @FXML private RadioButton selectAppsistRadioButton;
     
     public SettingsController(Map<MainApp.AppScene, Scene> scenes, PersistenceHandler persistenceHandler, Session session) {
         this.scenes = scenes;
@@ -67,6 +78,9 @@ public class SettingsController implements SceneController {
         this.editorErrorProperty = new SimpleStringProperty();
         this.selectedImageEditor = new SimpleStringProperty();
         this.selectedVideoEditor = new SimpleStringProperty();
+        
+       this.selectGlassroomRadioButton = new RadioButton();
+       this.selectAppsistRadioButton = new RadioButton();
     }
     
     @FXML
@@ -100,6 +114,27 @@ public class SettingsController implements SceneController {
         
         imageEditorInput.textProperty().bindBidirectional(selectedImageEditor);
         videoEditorInput.textProperty().bindBidirectional(selectedVideoEditor);
+        //Choose new Theme: third tab
+        props = new Properties(); 
+        URL urlPropertiesFile = getClass().getResource(MainApp.PROP_FILE_PATH);
+        try { 
+            InputStream in = urlPropertiesFile.openStream();
+            props.load(in);
+            urlPropertiesFile.openStream().close();
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(props.getProperty(MainApp.THEME_STRING).equals(MainApp.APPSIST_STRING))
+        {
+            selectGlassroomRadioButton.setSelected(false);
+            selectAppsistRadioButton.setSelected(true);
+        }
+        else if(props.getProperty(MainApp.THEME_STRING).equals(MainApp.GLASSROOM_STRING))
+        {
+            selectGlassroomRadioButton.setSelected(true);
+            selectAppsistRadioButton.setSelected(false);
+        }
     }
     
     @FXML
@@ -177,6 +212,53 @@ public class SettingsController implements SceneController {
         // Apply editor settings.
         config.setImageEditor(useDefaultImageEditorCheck.isSelected() ? null : selectedImageEditor.get());
         config.setVideoEditor(useDefaultVideoEditorCheck.isSelected() ? null : selectedVideoEditor.get());
+        
+        // save new theme
+        if(selectGlassroomRadioButton.isSelected())
+        {
+            MainApp.themeOption = MainApp.GLASSROOM_STRING;
+            MainApp.stylesheetOption = MainApp.STYLESHEET_GLASSROOM_STRING;
+            MainApp.mainStage.setTitle(MainApp.GLASSROOM_TITLE);
+            if(MainApp.mainStage.getIcons().size()>0)
+                MainApp.mainStage.getIcons().remove(0);
+            MainApp.mainStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+MainApp.ICON_GLASSROOM_STRING))); 
+            String url = getClass().getResource("/themes/"+MainApp.STYLESHEET_GLASSROOM_STRING).toExternalForm();
+            for (MainApp.AppScene theme : MainApp.AppScene.values())
+            {
+                if(MainApp.scenes.get(theme).getRoot().getStylesheets().size()>0)
+                    MainApp.scenes.get(theme).getRoot().getStylesheets().clear();
+                MainApp.scenes.get(theme).getRoot().getStylesheets().add(url);
+            }
+        }
+        if(selectAppsistRadioButton.isSelected())
+        {
+            MainApp.themeOption =  MainApp.APPSIST_STRING;
+            MainApp.stylesheetOption = MainApp.STYLESHEET_APPSIST_STRING;
+            MainApp.mainStage.setTitle(MainApp.APPSIST_TITLE);
+            if(MainApp.mainStage.getIcons().size()>0)
+                MainApp.mainStage.getIcons().remove(0);
+            MainApp.mainStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+MainApp.ICON_APPSIST_STRING)));
+            String url = getClass().getResource("/themes/"+MainApp.STYLESHEET_APPSIST_STRING).toExternalForm();
+            for (MainApp.AppScene theme : MainApp.AppScene.values())
+            {
+                if(MainApp.scenes.get(theme).getRoot().getStylesheets().size()>0)
+                    MainApp.scenes.get(theme).getRoot().getStylesheets().clear();
+                MainApp.scenes.get(theme).getRoot().getStylesheets().add(url);
+            }
+        }  
+        
+        // write in properties file new theme
+        props.replace(MainApp.THEME_STRING, MainApp.themeOption);
+        props.replace(MainApp.STYLESHEET_STRING, MainApp.stylesheetOption);
+        try {
+            URL urlPropertiesFile = getClass().getResource(MainApp.PROP_FILE_PATH);
+            String absolutePath = urlPropertiesFile.getPath();
+            FileOutputStream out = new FileOutputStream(absolutePath);
+            props.store(out, "Properties");
+            urlPropertiesFile.openStream().close();
+        } catch (IOException ex) {
+            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private boolean checkRepoSettings() {

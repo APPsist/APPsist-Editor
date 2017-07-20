@@ -15,7 +15,7 @@
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>
-      <Label layoutX="60.0" layoutY="177.0" prefHeight="30.0" prefWidth="194.0" text="APPsist Manager Theme" textFill="#1a1a1a">
+      <Label layoutX="60.0" layoutY="177.0" prefHeight="30.0" prefWidth="194.0" text="APPsist Editor Theme" textFill="#1a1a1a">
          <font>
             <Font name="System Bold" size="12.0" />
          </font></Label>

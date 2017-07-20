@@ -1327,18 +1327,7 @@ public class MainController implements SceneController {
             LOGGER.log(Level.WARNING, "Failed to store change to guide.", ex);
         }
     }
-   
-    @FXML
-    private void switchTheme(ActionEvent event) {
-        Stage stage = new Stage();
-        stage.setScene(scenes.get(AppScene.THEME_SETTINGS));
-        stage.setTitle("Theme konfigurieren");
-        setCurrentThemeLogo(stage);
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.initOwner(scene.getWindow());
-        stage.show();
-    }
-    
+ 
     private void setCurrentThemeLogo(Stage stage){
         if(themeOption.equalsIgnoreCase(GLASSROOM_STRING)){
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+ICON_GLASSROOM_STRING)));

@@ -29,8 +29,10 @@ public class MainApp extends Application {
     public static Stage mainStage;
     public static String stylesheetOption;
     public static String themeOption;
-    public static final String GLASSROOM_STRING = "glassroom";
-    public static final String APPSIST_STRING = "appsist";
+    public static final String GLASSROOM_TITLE = "GLASSROOM Manager";
+    public static final String APPSIST_TITLE = "APPSIST Editor";
+    public static final String GLASSROOM_STRING = "Glassroom";
+    public static final String APPSIST_STRING = "Appsist";
     public static final String STYLESHEET_STRING = "stylesheet";
     public static final String THEME_STRING = "theme";
     public static final String STYLESHEET_GLASSROOM_STRING = "style_glassroom.css";
@@ -48,8 +50,7 @@ public class MainApp extends Application {
         OPEN_GUIDE,
         SYNCHRONIZE,
         EDIT_GUIDE,
-        LOGIN_SCREEN,
-        THEME_SETTINGS
+        LOGIN_SCREEN
     }
     
     public static final AppConfiguration CONFIG;
@@ -80,17 +81,17 @@ public class MainApp extends Application {
             props.load(in);
             urlPropertiesFile.openStream().close();
         } catch (IOException ex) {
-            Logger.getLogger(ThemeSettingsController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(SettingsController.class.getName()).log(Level.SEVERE, null, ex);
         }
         stylesheetOption = props.getProperty(STYLESHEET_STRING);
         themeOption = props.getProperty(THEME_STRING);
         
         if(themeOption.equalsIgnoreCase(GLASSROOM_STRING)){
-            stage.setTitle("GLASSROOM Manager");
+            stage.setTitle(GLASSROOM_TITLE);
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+ICON_GLASSROOM_STRING)));
         }
         else if(themeOption.equalsIgnoreCase(APPSIST_STRING)){
-            stage.setTitle("APPSIST Manager");    
+            stage.setTitle(APPSIST_TITLE);    
             stage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+ICON_APPSIST_STRING)));
         }
         
@@ -101,7 +102,7 @@ public class MainApp extends Application {
         initScene(AppScene.LOGIN_SCREEN, "/fxml/LoginScreen.fxml", new LoginScreenController());
         initScene(AppScene.SYNCHRONIZE, "/fxml/SynchronizeWindow.fxml", new SynchronizeController(persistenceHandler, session));
         initScene(AppScene.EDIT_GUIDE, "/fxml/EditGuideWindow.fxml", new EditGuideController(persistenceHandler, session));
-        initScene(AppScene.THEME_SETTINGS, "/fxml/ThemeSettings.fxml", new ThemeSettingsController(persistenceHandler, session));
+
         stage.setScene(scenes.get(AppScene.MAIN));
         stage.show();
         mainStage=stage;
@@ -125,9 +126,11 @@ public class MainApp extends Application {
         fxmlLoader.setController(controller);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
+        
+        if(scene.getRoot().getStylesheets().size()>0)
+            scene.getRoot().getStylesheets().clear();
         String url = getClass().getResource("/themes/"+stylesheetOption).toExternalForm();
         scene.getRoot().getStylesheets().add(url);
-
         scenes.put(appScene, scene);
         controller.setScene(scene);
     }

@@ -132,7 +132,7 @@ public class ThemeSettingsController implements SceneController, Initializable {
         {
             MainApp.themeOption =  MainApp.APPSIST_STRING;
             MainApp.stylesheetOption = MainApp.STYLESHEET_APPSIST_STRING;
-            MainApp.mainStage.setTitle("Appsist Manager");
+            MainApp.mainStage.setTitle("Appsist Editor");
             if(MainApp.mainStage.getIcons().size()>0)
                 MainApp.mainStage.getIcons().remove(0);
             MainApp.mainStage.getIcons().add(new Image(MainApp.class.getResourceAsStream("/logos/"+MainApp.ICON_APPSIST_STRING)));

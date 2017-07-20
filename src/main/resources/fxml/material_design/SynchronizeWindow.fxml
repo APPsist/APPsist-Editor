@@ -28,7 +28,7 @@
             <ProgressIndicator maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="64.0" prefWidth="64.0" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
-      <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../css/style_glassroom.css">
+      <BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@../themes/style_glassroom.css">
          <bottom>
             <VBox BorderPane.alignment="CENTER">
                <children>
